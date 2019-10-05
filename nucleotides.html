@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+        </style>
+    </head>
+    <body>
+        <p id="adenine"></p>
+        <p id="cytosine"></p>
+        <p id="guanine"></p>
+        <p id="thyamine"></p>
+        <input type="text" name="nu-input" id="nu-input">
+        <button type="submit" name="submit-btn" id="submit-btn">Submit</button>
+        <script>
+            let a = document.querySelector('#adenine');
+            let c = document.querySelector('#cytosine');
+            let g = document.querySelector('#guanine');
+            let t = document.querySelector('#thyamine');
+
+            let aCount = 0;
+            let cCount = 0;
+            let gCount = 0;
+            let tCount = 0;
+
+            a.innerHTML = aCount;
+            c.innerHTML = cCount;
+            g.innerHTML = gCount;
+            t.innerHTML = tCount;
+
+            //'nu' is short for nucleotide.
+            let nuInput = document.getElementById('nu-input');
+            let nuBtn = document.getElementById('submit-btn');
+            let nu = nuInput.value;
+            let nuArr = [];
+            let nuReg = /\W|_|[0-9]|[bdefhijklmnopqrsuvwxyz]/g;//^[bdefhijklmnopqrsuvwxyz][0-9]\W*$/gi;//bdefhijklmnopqrsuvwxyz[0-9]\W/gi;
+            let result = nu.match(nuReg);
+            
+            nuBtn.addEventListener('click', calc);
+
+            //push string elements to array
+
+            function calc(e) {
+                for (i = 0; i < nu.length; i++) {
+                    //nuArr.push(nu.charAt(i));
+                    if (nu[i] === "a") {
+                        aCount++;
+                    } else if (nu[i] === "c") {
+                        cCount++;
+                    } else if (nu[i] === "g") {
+                        gCount++;
+                    } else if (nu[i] === "t") {
+                        tCount++;
+                    }
+                }
+
+                /*if (nu[i] !== "a" || nu[i] !== "c" || nu[i] !== "g" || nu[i] !== "t") {
+                    alert("Invalid character! Please include only a, c, g, and/or t.")
+                }*/
+
+                /*for (let i = 0; i < nuArr.length; i++) {
+                    if (nuArr[i] === "a") {
+                    aCount++;
+                    } else if ()
+                }*/
+
+                a.innerHTML = `Adenine: ${aCount}`;
+                c.innerHTML = `Cytosine: ${cCount}`;
+                g.innerHTML = `Guanine: ${gCount}`;
+                t.innerHTML = `Thyamine: ${tCount}`;
+
+                aCount = 0;
+                cCount = 0;
+                gCount = 0;
+                tCount = 0;
+
+                nuArr = [];
+                nu = nuInput.value;
+            }
+        </script>
+    </body>
+</html>
