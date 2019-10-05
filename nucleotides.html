@@ -13,6 +13,7 @@
         <input type="text" name="nu-input" id="nu-input">
         <button type="submit" name="submit-btn" id="submit-btn">Submit</button>
         <script>
+            //Initialize variables.
             let a = document.querySelector('#adenine');
             let c = document.querySelector('#cytosine');
             let g = document.querySelector('#guanine');
@@ -28,21 +29,25 @@
             g.innerHTML = gCount;
             t.innerHTML = tCount;
 
-            //'nu' is short for nucleotide.
+            //Nu is short for nucleotide.
             let nuInput = document.getElementById('nu-input');
             let nuBtn = document.getElementById('submit-btn');
             let nu = nuInput.value;
-            let nuArr = [];
-            let nuReg = /\W|_|[0-9]|[bdefhijklmnopqrsuvwxyz]/g;//^[bdefhijklmnopqrsuvwxyz][0-9]\W*$/gi;//bdefhijklmnopqrsuvwxyz[0-9]\W/gi;
+
+            //Regex that matches non 'acgt' characters and stores them in a result variable.
+            let nuReg = /\W|_|[0-9]|[bdefhijklmnopqrsuvwxyz]/gi;
             let result = nu.match(nuReg);
             
+            //Event listener on submit button that runs the calc function onclick.
             nuBtn.addEventListener('click', calc);
 
-            //push string elements to array
-
             function calc(e) {
+                //Reset variables so that function can be run again without refreshing the page.
+                nu = nuInput.value;
+                result = nu.match(nuReg);
+
+                //increment 'acgt' counters when a, c, g, or t is encountered in the input string.
                 for (i = 0; i < nu.length; i++) {
-                    //nuArr.push(nu.charAt(i));
                     if (nu[i] === "a") {
                         aCount++;
                     } else if (nu[i] === "c") {
@@ -54,28 +59,22 @@
                     }
                 }
 
-                /*if (nu[i] !== "a" || nu[i] !== "c" || nu[i] !== "g" || nu[i] !== "t") {
-                    alert("Invalid character! Please include only a, c, g, and/or t.")
-                }*/
-
-                /*for (let i = 0; i < nuArr.length; i++) {
-                    if (nuArr[i] === "a") {
-                    aCount++;
-                    } else if ()
-                }*/
-
+                //Redefine variables to dynamically update values.
                 a.innerHTML = `Adenine: ${aCount}`;
                 c.innerHTML = `Cytosine: ${cCount}`;
                 g.innerHTML = `Guanine: ${gCount}`;
                 t.innerHTML = `Thyamine: ${tCount}`;
 
+                //Reset counters to prevent counters from increment on every button click.
                 aCount = 0;
                 cCount = 0;
                 gCount = 0;
                 tCount = 0;
 
-                nuArr = [];
-                nu = nuInput.value;
+                //If the regex matches a character and stores it in the result variable (result !== null), display a screen alert.
+                if (result !== null) {
+                    alert("Invalid character!");
+                }
             }
         </script>
     </body>
